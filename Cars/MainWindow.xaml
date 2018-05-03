@@ -1,0 +1,111 @@
+﻿<Window x:Class="Cars.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cars"
+        xmlns:db="clr-namespace:Cars.Models"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="auto" MinHeight="400"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0"
+              Grid.Column="0"
+              Background="#D5E0F1">
+            <MenuItem Header="Фаил">
+                <MenuItem Header="Новый">
+                    <MenuItem Header="CSV" Click="NewCsvMenuItem_Click"/>
+                    <MenuItem Header="BIN" Click="NewBinMenuItem_Click"/>
+                </MenuItem>
+                <MenuItem Header="Открыть" Click="OpenMenuItem_Click"/>
+                <MenuItem Header="Сохранить как" Click="SaveAsMenuItem_Click"/>
+                <MenuItem Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Orientation="Horizontal"
+                    Background="#D5E0D3"
+                    Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        Margin="5,3,0,3">
+                <RadioButton x:Name="RBcsv"
+                             Click="StorageChange_Click"
+                             Margin="0,0,5,0">CSV</RadioButton>
+                <RadioButton x:Name="RBbin"
+                             Margin="0,0,5,0"
+                             Click="StorageChange_Click">BIN</RadioButton>
+                <RadioButton x:Name="RBddr"
+                             IsChecked="True"
+                             Margin="0,0,5,0"
+                             Click="StorageChange_Click">DDR</RadioButton>
+            </StackPanel>
+            <ComboBox x:Name="CBfilter"
+                      Width="180"
+                      Height="20"
+                      Margin="0,1,0,1"
+                      Padding="5,1,0,1"
+                      VerticalAlignment="Top">
+                <ComboBoxItem Content="Фильтровать по марке"/>
+                <ComboBoxItem Content="Фильтровать по мощности"/>
+                <ComboBoxItem Content="Фильтровать по стоимости"/>
+                <ComboBoxItem Content="Фильтровать по цвету"/>
+            </ComboBox>
+            <TextBox x:Name="TxtBoxFilter"
+                     Width="100"
+                     Height="20"
+                     VerticalAlignment="Top"
+                     Margin="10,1,10,1"/>
+            <Button Content="Поиск"
+                    x:Name="Search"
+                    Height="20"
+                    Margin="0,1,10,1"
+                    VerticalAlignment="Top"
+                    Click="FilterButton_Click"/>
+            <Button Content="Отмена"
+                    x:Name="Cancel"
+                    Height="20"
+                    Margin="0,1,10,1"
+                    VerticalAlignment="Top"
+                    Click="FilterAbortButton_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="DataGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  CellEditEnding="DataGrid_CellEditEnding">
+            <DataGrid.DataContext>
+                <db:Cars/>
+            </DataGrid.DataContext>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Марка"
+                                    MinWidth="100"
+                                    Width="auto"
+                                    Binding="{Binding Marka}"/>
+                <DataGridTextColumn Header="Мощность"
+                                    MinWidth="50"
+                                    Width="auto"
+                                    Binding="{Binding Power}"/>
+                <DataGridTextColumn Header="Стоимость"
+                                    MinWidth="50"
+                                    Width="auto"
+                                    Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Цвет"
+                                    MinWidth="80"
+                                    Width="auto"
+                                    Binding="{Binding Color}"/>
+                <DataGridTextColumn Header="Дата изменения"
+                                    MinWidth="100"
+                                    Width="auto"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ChangeDate}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        
+       
+
+
+    </Grid>
+</Window>
